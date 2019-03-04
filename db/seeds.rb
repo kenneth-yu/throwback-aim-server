@@ -17,8 +17,8 @@ Message.destroy_all
 20.times{
 Chat.create() }
 
-User.all.each do |user|
-  Chat.all.each do |chat|
+Chat.all.each do |chat|
+  User.all.each do |user|
     1+rand(10).times do
       Message.create({user_id: user.id, chat_id: chat.id, content: Faker::Movie.quote})
     end
