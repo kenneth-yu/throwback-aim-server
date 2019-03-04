@@ -12,7 +12,7 @@ User.destroy_all
 Chat.destroy_all
 Message.destroy_all
 
-20.times { User.create({username:Faker::Name.middle_name, password_digest: 'password'})}
+20.times { User.create({username:Faker::Name.middle_name, password: 'password'})}
 
 20.times{
 Chat.create() }
