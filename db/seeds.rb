@@ -11,11 +11,18 @@ require 'faker'
 User.destroy_all
 Chat.destroy_all
 Message.destroy_all
+Friendship.destroy_all
+
 
 20.times { User.create({username:Faker::Name.middle_name, password: 'password'})}
 
-20.times{
-Chat.create() }
+User.all.each do |user|
+  5.times {Friendship.create({user1: user.id, user2: 1+rand(20)})}
+end
+
+Friendship.all.each do |f|
+  Chat.create({friendship_id: f.id})
+end
 
 Chat.all.each do |chat|
   User.all.each do |user|
