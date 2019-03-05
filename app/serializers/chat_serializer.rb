@@ -1,4 +1,4 @@
 class ChatSerializer < ActiveModel::Serializer
-  attributes :id, :user1, :user2
+  attributes :id, :friendship
   has_many :messages
 end
