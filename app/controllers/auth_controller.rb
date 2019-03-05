@@ -14,7 +14,6 @@ class AuthController < ApplicationController
   end
 
   def show
-    byebug
     @user = current_user
     if @user
       render json: {user: @user }

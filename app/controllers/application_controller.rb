@@ -2,7 +2,7 @@ class ApplicationController < ActionController::API
   before_action :authorized
 
   def encode_token(payload) #{ user_id: 2 }
-    JWT.encode(payload, 'my_s3cr3t') #issue a token, store payload in token
+    JWT.encode(payload, 'secret') #issue a token, store payload in token
   end
 
   def auth_header
@@ -10,11 +10,9 @@ class ApplicationController < ActionController::API
   end
 
   def decoded_token
-    if auth_header()
-      token = auth_header.split(' ')[1] #[Bearer, <token>]
+    if auth_header
       begin
-        JWT.decode(token, 'my_s3cr3t', true, algorithm: 'HS256')
-        # JWT.decode => [{ "user_id"=>"2" }, { "alg"=>"HS256" }]
+        JWT.decode(auth_header, 'secret')
       rescue JWT::DecodeError
         nil
       end
@@ -22,12 +20,10 @@ class ApplicationController < ActionController::API
   end
 
   def current_user
-    if decoded_token()
-      user_id = decoded_token[0]['user_id'] #[{ "user_id"=>"2" }, { "alg"=>"HS256" }]
-      @user = User.find_by(id: user_id)
-    else
-      nil
-    end
+      if decoded_token
+        user_id = decoded_token[0]['user_id']
+        @user = User.find_by(id: user_id)
+      end
   end
 
   def logged_in?
