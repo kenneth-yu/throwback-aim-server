@@ -8,7 +8,7 @@ fetch('http://localhost:3000/users', {
   },
   body: JSON.stringify({
     user: {
-      username: 'snorlax',
+      username: `bee_fighter${(Math.random() * 1000) + 1}`,
       password: 'password',
       logged_in: 'true'
     }

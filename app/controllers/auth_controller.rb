@@ -14,6 +14,7 @@ class AuthController < ApplicationController
   end
 
   def show
+    byebug
     @user = current_user
     if @user
       render json: {user: @user }
@@ -25,7 +26,6 @@ class AuthController < ApplicationController
   private
 
   def user_login_params
-    # params { user: {username: 'Chandler Bing', password: 'hi' } }
     params.require(:user).permit(:username, :password)
   end
 end
