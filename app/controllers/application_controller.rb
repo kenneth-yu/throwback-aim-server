@@ -10,8 +10,13 @@ class ApplicationController < ActionController::API
   end
 
   def decoded_token
+    puts("decoded token")
     if auth_header()
-      token = auth_header.split(' ')[1] #[Bearer, <token>]
+      puts("auth header true")
+      puts(auth_header)
+      token = auth_header.split('.')[2] #[Bearer, <token>]
+      puts("this is what the token is supposed to be:")
+      puts(token)
       begin
         JWT.decode(token, 'my_s3cr3t', true, algorithm: 'HS256')
         # JWT.decode => [{ "user_id"=>"2" }, { "alg"=>"HS256" }]
@@ -22,7 +27,9 @@ class ApplicationController < ActionController::API
   end
 
   def current_user
+    puts("current user function")
     if decoded_token()
+      puts("decoded token true")
       user_id = decoded_token[0]['user_id'] #[{ "user_id"=>"2" }, { "alg"=>"HS256" }]
       @user = User.find_by(id: user_id)
     else
@@ -31,6 +38,7 @@ class ApplicationController < ActionController::API
   end
 
   def logged_in?
+    puts("at logged in function")
     !!current_user
   end
 
