@@ -23,7 +23,9 @@ User.all.each do |user|
 end
 
 Friendship.all.each do |f|
-  Chat.create({friendship_id: f.id})
+  newChat = Chat.create({friendship_id: f.id})
+  UserConversation.create({chat_id: newChat.id, user_id: f.user1})
+  UserConversation.create({chat_id: newChat.id, user_id: f.user2})
 end
 
 Chat.all.each do |chat|
