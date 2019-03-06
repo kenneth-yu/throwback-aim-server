@@ -26,6 +26,7 @@
 *.sql
 *.sqlite
 
+
 # OS generated files #
 ######################
 .DS_Store
@@ -43,3 +44,7 @@ node_modules
 # test.js
 ##########
 test.js
+
+# tmp folder
+# ##########
+tmp
