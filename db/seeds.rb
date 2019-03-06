@@ -14,12 +14,12 @@ Message.destroy_all
 Friendship.destroy_all
 
 
-20.times { User.create({username:Faker::Name.middle_name, password: '123'})}
+10.times { User.create({username:Faker::Name.middle_name, password: '123'})}
 
-10.times { User.create({username:Faker::Name.middle_name, password: '123', logged_in: true})}
+5.times { User.create({username:Faker::Name.middle_name, password: '123', logged_in: true})}
 
 User.all.each do |user|
-  5.times {Friendship.create({user1: user.id, user2: 1+rand(20)})}
+  5.times {Friendship.create({user1: user.id, user2: User.all.sample.id})}
 end
 
 Friendship.all.each do |f|
