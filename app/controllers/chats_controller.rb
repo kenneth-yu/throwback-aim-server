@@ -6,6 +6,7 @@ class ChatsController < ApplicationController
 
   def create
     @chat = Chat.create(chat_params)
+    
     render :json => @chat, each_serializer: ChatSerializer
   end
 
