@@ -10,17 +10,8 @@ class ApplicationController < ActionController::API
   end
 
   def decoded_token
-<<<<<<< HEAD
-    puts("decoded token")
     if auth_header()
-      puts("auth header true")
-      puts(auth_header)
       token = auth_header.split('.')[2] #[Bearer, <token>]
-      puts("this is what the token is supposed to be:")
-      puts(token)
-=======
-    if auth_header
->>>>>>> 925294d0ea326d5f39f9db0483da67704bc0ba0e
       begin
         JWT.decode(auth_header, 'secret')
       rescue JWT::DecodeError
@@ -30,25 +21,15 @@ class ApplicationController < ActionController::API
   end
 
   def current_user
-<<<<<<< HEAD
-    puts("current user function")
     if decoded_token()
-      puts("decoded token true")
       user_id = decoded_token[0]['user_id'] #[{ "user_id"=>"2" }, { "alg"=>"HS256" }]
       @user = User.find_by(id: user_id)
     else
       nil
     end
-=======
-      if decoded_token
-        user_id = decoded_token[0]['user_id']
-        @user = User.find_by(id: user_id)
-      end
->>>>>>> 925294d0ea326d5f39f9db0483da67704bc0ba0e
   end
 
   def logged_in?
-    puts("at logged in function")
     !!current_user
   end
 
