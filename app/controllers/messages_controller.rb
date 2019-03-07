@@ -7,7 +7,6 @@ class MessagesController < ApplicationController
 
   def create
     message = current_user.messages.build(message_params)
-    byebug
     if message.save
       ActionCable.server.broadcast "chat_channel",
                                     content: message.content
