@@ -1,6 +1,8 @@
 class UsersChannel < ApplicationCable::Channel
   def subscribed
     @user = User.find_by(id: params[:id])
+    @user.logged_in = true
+    @user.save
     stream_from "users_channel"
   end
 
@@ -9,5 +11,7 @@ class UsersChannel < ApplicationCable::Channel
   end
 
   def unsubscribed
+    @user.logged_in = false
+    @user.save
   end
 end
