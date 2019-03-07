@@ -6,9 +6,12 @@ class MessagesController < ApplicationController
   end
 
   def create
-    chat = Chat.new()
-    byebug
-    message = Message.new(content: message_params[:content], user_id: message_params[:user_id], chat_id: chat.id)
+    if message_params[:chat_id]
+      message = Message.new(message_params)
+    else
+      chat = Chat.new()
+      message = Message.new(content: message_params[:content], user_id: message_params[:user_id], chat_id: chat.id)
+    end
     if message.save
       serialized_data = ActiveModelSerializers::Adapter::Json.new(
         MessageSerializer.new(message)
