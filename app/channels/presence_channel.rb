@@ -8,8 +8,7 @@ class PresenceChannel < ApplicationCable::Channel
   end
 
   def unsubscribed
-    current_user.logged_in = false
-    current_user.save
+  
 
     ActionCable.server.broadcast("presence_channel", {type: "DC_USER", user: current_user.id})
   end

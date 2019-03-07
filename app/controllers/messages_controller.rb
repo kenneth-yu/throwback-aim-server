@@ -13,13 +13,12 @@ class MessagesController < ApplicationController
       chat = Chat.create(friendship_id: friendship.id)
       message = Message.new(content: message_params[:content], user_id: message_params[:user_id], chat_id: chat.id)
     end
-    byebug
     if message.save
       serialized_data = ActiveModelSerializers::Adapter::Json.new(
         MessageSerializer.new(message)
       ).serializable_hash
       MessagesChannel.broadcast_to chat, serialized_data
-      head :ok
+      render status: :ok, :json => message, each_serializer: MessageSerializer
     end
   end
 
