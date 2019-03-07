@@ -7,6 +7,7 @@ class MessagesController < ApplicationController
 
   def create
     chat = Chat.new()
+    byebug
     message = Message.new(content: message_params[:content], user_id: message_params[:user_id], chat_id: chat.id)
     if message.save
       serialized_data = ActiveModelSerializers::Adapter::Json.new(
@@ -24,6 +25,6 @@ class MessagesController < ApplicationController
 
   private
   def message_params
-    params.require(:message).permit(:content, :created_at, :user_id, :chat_id)
+    params.require(:message).permit(:content, :user_id, :chat_id)
   end
 end
