@@ -6,10 +6,14 @@ class MessagesController < ApplicationController
   end
 
   def create
-    message = current_user.messages.build(message_params)
+    chat = Chat.new()
+    message = Message.new(content: message_params[:content], user_id: message_params[:user_id], chat_id: chat.id)
     if message.save
-      ActionCable.server.broadcast "chat_channel",
-                                    content: message.content
+      serialized_data = ActiveModelSerializers::Adapter::Json.new(
+        MessageSerializer.new(message)
+      ).serializable_hash
+      MessagesChannel.broadcast_to chat, serialized_data
+      head :ok
     end
   end
 
