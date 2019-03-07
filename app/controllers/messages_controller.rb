@@ -9,9 +9,11 @@ class MessagesController < ApplicationController
     if message_params[:chat_id]
       message = Message.new(message_params)
     else
-      chat = Chat.new()
+      friendship = Friendship.create()
+      chat = Chat.create(friendship_id: friendship.id)
       message = Message.new(content: message_params[:content], user_id: message_params[:user_id], chat_id: chat.id)
     end
+    byebug
     if message.save
       serialized_data = ActiveModelSerializers::Adapter::Json.new(
         MessageSerializer.new(message)
