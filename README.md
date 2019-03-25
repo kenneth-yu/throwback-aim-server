@@ -1,24 +1,22 @@
-# README
+# throwbackAim
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+A web recreation of AOL Instant Messenger. The application features a React Front-End with Ruby on Rails Back-End. Developed via pair programming.
 
-Things you may want to cover:
+Deployed at: https://throwback-aim.herokuapp.com/
+Feel free to create a new account or login in using Username: tester and Password: testing
 
-* Ruby version
+Currently Features: 
 
-* System dependencies
+* Ruby on Rails Backend 
 
-* Configuration
+* Postgres
 
-* Database creation
+* BCrypt Authentication
 
-* Database initialization
+* JWT Token
 
-* How to run the test suite
+* Websockets
 
-* Services (job queues, cache servers, search engines, etc.)
+* React Front-End (https://github.com/kenneth-yu/throwback-aim-client)
 
-* Deployment instructions
-
-* ...
+This appliction relies on Action Cable and Websockets to instantly send messages cross browser in real-time. 
